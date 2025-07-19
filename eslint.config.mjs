@@ -1,8 +1,8 @@
-import next from 'eslint-config-next'
+import eslintConfigNext from 'eslint-config-next'
 
 export default [
+  eslintConfigNext,
   {
-    ...next(),
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
     },
