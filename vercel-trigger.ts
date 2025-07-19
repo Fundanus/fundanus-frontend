@@ -1,0 +1,1 @@
+// forçar build no Vercel
