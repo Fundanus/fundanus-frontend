@@ -67,7 +67,10 @@ export default function DashboardPage() {
 
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    console.log("DEBUG handleSubmit →", { ticker, type, userId });
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log("handleSubmit →", { ticker, type, userId });
+    }
 
     if (!ticker || !type || !userId) {
       setError("ticker, type e user_id são obrigatórios.");
@@ -106,7 +109,7 @@ export default function DashboardPage() {
       <h1 className="page-title">Bem-vindo ao Fundanus!</h1>
       <p className="page-subtitle">ID do utilizador: {userId}</p>
 
-      <div className="form-section" style={{ marginTop: '2rem' }}>
+      <form className="form-section mt-8" onSubmit={handleSubmit}>
         <label>
           Tipo de ativo:
           <select value={type} onChange={e => setType(e.target.value as 'stocks' | 'crypto')}>
@@ -115,7 +118,7 @@ export default function DashboardPage() {
           </select>
         </label>
 
-        <label className="form-group" style={{ display: 'block', marginTop: '1rem' }}>
+        <label className="form-group block mt-4">
           Ticker:
           <input
             type="text"
@@ -133,14 +136,10 @@ export default function DashboardPage() {
           </datalist>
         </label>
 
-        <button
-          type="button"
-          onClick={handleSubmit}
-          disabled={loading}
-        >
+        <button type="submit" disabled={loading}>
           {loading ? '🔄 A gerar relatório...' : 'Gerar Relatório'}
         </button>
-      </div>
+      </form>
 
       {error && <p className="form-error">⚠️ {error}</p>}
 
